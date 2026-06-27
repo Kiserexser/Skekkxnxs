@@ -1,17 +1,18 @@
 package name.modid;
 
+import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.player.AbstractClientPlayer;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import com.mojang.math.Axis;
+import net.minecraft.world.entity.player.Player;
 
 public class Arrows {
     private static final Minecraft mc = Minecraft.getInstance();
     private static boolean enabled = false;
-    private static final ResourceLocation ARROW_TEXTURE = new ResourceLocation("dusaruysclient", "textures/arrows.png");
+    private static final ResourceLocation ARROW_TEXTURE = ResourceLocation.fromNamespaceAndPath("dusaruysclient", "textures/arrows.png");
     private static final float RADIUS = 60f;
 
     public static void toggle() {
@@ -33,7 +34,7 @@ public class Arrows {
         int screenWidth = mc.getWindow().getGuiScaledWidth();
         int screenHeight = mc.getWindow().getGuiScaledHeight();
 
-        for (AbstractClientPlayer player : mc.level.players()) {
+        for (Player player : mc.level.players()) {
             if (player == mc.player || player.isDeadOrDying() || !player.isAlive()) continue;
 
             double dx = player.getX() - mc.player.getX();
