@@ -1,17 +1,17 @@
 package name.modid;
 
+import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import net.minecraft.util.RotationAxis;
 
 public class Arrows {
     private static final Minecraft mc = Minecraft.getInstance();
     private static boolean enabled = false;
-    private static final ResourceLocation ARROW_TEXTURE = ResourceLocation.withDefaultNamespace("dusaruysclient", "textures/arrows.png");
+    private static final ResourceLocation ARROW_TEXTURE = new ResourceLocation("dusaruysclient", "textures/arrows.png");
     private static final float RADIUS = 60f;
 
     public static void toggle() {
@@ -58,14 +58,12 @@ public class Arrows {
             var poseStack = context.pose();
             poseStack.pushPose();
             poseStack.translate(arrowX, arrowY, 0);
-            poseStack.mulPose(RotationAxis.ZP.rotationDegrees(angle));
+            poseStack.mulPose(Axis.ZP.rotationDegrees(angle));
 
-            // Рисуем PNG-текстуру
             context.blit(ARROW_TEXTURE, -half, -half, 0, 0, size, size, size, size);
 
             poseStack.popPose();
 
-            // Дистанция под стрелкой
             if (dist > 0) {
                 String distText = String.format("%.1f", dist);
                 int textX = (int)(arrowX - mc.font.width(distText) / 2f);
